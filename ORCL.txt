@@ -1,0 +1,34 @@
+alter session set "_ORACLE_SCRIPT"=true;
+
+commit;
+
+Create user DIS102_187B identified by DIS102_187B default tablespace users;
+grant dba to DIS102_187B;
+grant connect, create session, imp_full_database to DIS102_187B;
+grant unlimited tablespace to DIS102_187B;
+
+
+Drop user AM_UB_121B_3MLN CASCADE;
+
+drop Tablespace AMM_DATA including contents;
+drop Tablespace AMM_INDEX including contents;
+commit;
+
+
+create TABLESPACE AMM_DATA
+DATAFILE 'D:\OracleData\AMMDATA.dat'
+SIZE 100M
+REUSE
+AUTOEXTEND ON NEXT 10M MAXSIZE 10240M;
+
+
+create TABLESPACE AMM_INDEX
+DATAFILE 'D:\OracleData\AMMINDEX.dat'
+SIZE 100M
+REUSE
+AUTOEXTEND ON NEXT 10M MAXSIZE 10240M;
+
+commit;
+
+CREATE OR REPLACE DIRECTORY UB_PATH AS 'D:\Backup';
+grant read, write on directory UB_PATH to public;
